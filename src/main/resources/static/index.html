@@ -1,0 +1,64 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .weather-anim { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+        .rain-drop { position: absolute; width: 2px; height: 15px; background: rgba(255,255,255,0.7); animation: rainFall linear infinite; bottom: 100%; }
+        @keyframes rainFall { 0% { transform: translateY(0); } 100% { transform: translateY(120vh); } }
+        .snow-flake { position: absolute; font-size: 1.2rem; animation: snowFall 10s linear infinite; }
+        @keyframes snowFall { 0% { transform: translateY(0); } 100% { transform: translateY(120vh); } }
+        .cloud { position: absolute; font-size: 5rem; opacity: .5; animation: cloudDrift 45s linear infinite; }
+        @keyframes cloudDrift { 0% { transform: translateX(-20%); } 100% { transform: translateX(120%); } }
+    </style>
+</head>
+
+<body class="dark:bg-gray-900 dark:text-white">
+
+<div id="weatherAnim" class="weather-anim"></div>
+
+<div class="min-h-screen flex items-center justify-center p-6">
+
+    <div class="max-w-3xl w-full bg-gray-800/70 backdrop-blur-xl shadow-2xl rounded-2xl p-10 border border-gray-700">
+
+        <h1 class="text-4xl font-extrabold text-center mb-8 bg-gradient-to-r from-purple-300 to-yellow-300 text-transparent bg-clip-text drop-shadow-lg">🌤️ Weather Forecast</h1>
+
+        <div class="flex gap-3 mb-10">
+            <input id="cityInput" type="text" placeholder="Enter city" class="flex-grow p-4 rounded-xl border border-gray-600 bg-gray-700 text-white shadow-md" />
+            <input id="daysInput" type="number" min="1" max="16" value="10" class="w-28 p-4 text-lg rounded-xl border border-gray-600 bg-gray-700 text-white text-center shadow-md" />
+            <button onclick="getForecast()" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-700 text-white font-semibold rounded-xl shadow-lg hover:scale-105 transition">Search</button>
+        </div>
+
+        <div id="result" class="space-y-4"></div>
+
+        <div class="mt-10 p-6 bg-gray-700/80 rounded-xl shadow-xl border border-gray-600">
+            <h2 class="text-xl font-bold text-center text-yellow-300 mb-4">📈 Temperature Trend</h2>
+            <canvas id="tempChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+
